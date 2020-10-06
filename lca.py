@@ -3,6 +3,7 @@ class TreeNode:
       self.data = data
       self.left = left
       self.right = right
+
 def insert(temp,data):
    que = []
    que.append(temp)
@@ -25,11 +26,13 @@ def insert(temp,data):
             break
          else:
             que.append(temp.right)
+
 def make_tree(elements):
    Tree = TreeNode(elements[0])
    for element in elements[1:]:
       insert(Tree, element)
    return Tree
+
 class Solution(object):
    def lowestCommonAncestor(self, root, p, q):
       if not root:
@@ -41,6 +44,7 @@ class Solution(object):
       if right and left:
          return root
       return right or left
+      
 ob1 = Solution()
 tree = make_tree([3,5,1,6,2,0,8,None,None,7,4])
 print(ob1.lowestCommonAncestor(tree, 5, 1).data)

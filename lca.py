@@ -44,7 +44,11 @@ class Solution(object):
       if right and left:
          return root
       return right or left
-      
+
 ob1 = Solution()
 tree = make_tree([3,5,1,6,2,0,8,None,None,7,4])
 print(ob1.lowestCommonAncestor(tree, 5, 1).data)
+
+ob2 = Solution()
+tree1 = make_tree([2,7,5,8,6,None,9,None,None,1,11])
+print(ob2.lowestCommonAncestor(tree1, 8, 11).data)

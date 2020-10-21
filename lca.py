@@ -5,31 +5,31 @@ class TreeNode:
         self.next = []
 
 #LCA for Directed Acyclic Graph
-def dagLCA(root,n1,n2):
+def lowestCommonAncestor(root,p,q):
     if root is None:
         return None
 
-    if root.key == n1 or root.key == n2:
+    if root.key == p or root.key == q:
         return root
-    if n1 == n2:
-        return n1.key
+    if p == q:
+        return p.key
     lca = []
     i=0
-    while(i<len(n1.before)):
+    while(i<len(p.before)):
         j=0
-        while(j<len(n2.before)):
-            if(n1.before[i].key == n2.before[j].key):
-                lca.append(n1.before[i].key)
+        while(j<len(q.before)):
+            if(p.before[i].key == q.before[j].key):
+                lca.append(p.before[i].key)
                 j+=1
             else:
                 j+=1
         i+=1
 
     if(lca == []):
-        if(n1.key > n2.key):
-            lca.append(dagLCA(root,n1.before[0],n2))
+        if(p.key > q.key):
+            lca.append(lowestCommonAncestor(root,p.before[0],q))
         else:
-            lca.append(dagLCA(root,n1,n2.before[0]))
+            lca.append(lowestCommonAncestor(root,p,q.before[0]))
 
     return max(lca)
 

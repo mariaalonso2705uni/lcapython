@@ -6,6 +6,6 @@
 * Create a branch and adapt the code and unit tests for Directed Acyclic Graphs (DAG)
 
 #### Navigation ####
-Branch main contains code and tests for binary trees
-Branch lcapythonDAG contains code and tests for Directed Acyclic Graphs
+* Branch main contains code and tests for binary trees
+* Branch lcapythonDAG contains code and tests for Directed Acyclic Graphs
 

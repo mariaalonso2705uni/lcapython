@@ -1,56 +1,51 @@
 class TreeNode:
-   def __init__(self, data, left = None, right = None):
-      self.data = data
-      self.left = left
-      self.right = right
+    def __init__(self, key):
+        self.key = key
+        self.before = []
+        self.next = []
 
-def insert(temp,data):
-   que = []
-   que.append(temp)
-   while (len(que)):
-      temp = que[0]
-      que.pop(0)
-      if (not temp.left):
-         if data is not None:
-            temp.left = TreeNode(data)
-         else:
-            temp.left = TreeNode(0)
-         break
-      else:
-         que.append(temp.left)
-         if (not temp.right):
-            if data is not None:
-               temp.right = TreeNode(data)
+#LCA for Directed Acyclic Graph
+def dagLCA(root,n1,n2):
+    if root is None:
+        return None
+
+    if root.key == n1 or root.key == n2:
+        return root
+    if n1 == n2:
+        return n1.key
+    lca = []
+    i=0
+    while(i<len(n1.before)):
+        j=0
+        while(j<len(n2.before)):
+            if(n1.before[i].key == n2.before[j].key):
+                lca.append(n1.before[i].key)
+                j+=1
             else:
-               temp.right = TreeNode(0)
-            break
-         else:
-            que.append(temp.right)
+                j+=1
+        i+=1
 
-def make_tree(elements):
-   Tree = TreeNode(elements[0])
-   for element in elements[1:]:
-      insert(Tree, element)
-   return Tree
+    if(lca == []):
+        if(n1.key > n2.key):
+            lca.append(dagLCA(root,n1.before[0],n2))
+        else:
+            lca.append(dagLCA(root,n1,n2.before[0]))
 
-class Solution(object):
-   def lowestCommonAncestor(self, root, p, q):
-      if not root:
-         return None
-      if root.data == p or root.data ==q:
-         return root
-      left = self.lowestCommonAncestor(root.left, p, q)
-      right = self.lowestCommonAncestor(root.right, p, q)
-      if right and left:
-         return root
-      return right or left
+    return max(lca)
 
-# ob1 = Solution()
-tree = make_tree([3,5,1,6,2,0,8,None,None,7,4])
-# print(ob1.lowestCommonAncestor(tree, 5, 1).data)
-
-# ob2 = Solution()
-# tree1 = make_tree([2,7,5,8,6,None,9,None,None,1,11])
-# print(ob2.lowestCommonAncestor(tree1, 8, 11).data)
-
-# new branch for DAG
+#directed acylic graph
+root = Node(1)
+r2 = Node(2)
+r3 = Node(3)
+r4 = Node(4)
+r5 = Node(5)
+r6 = Node(6)
+root.next = [r2,r3,r4,r5]
+r2.next = [r4]
+r2.before = [root]
+r3.next = [r4, r5]
+r3.before = [root]
+r4.next = [r5]
+r4.before = [r2,r3,root]
+r5.before = [r3,r4,root]
+r6.before = [r4]
